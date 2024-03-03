@@ -98,7 +98,8 @@ let ucetambolunenler,
   ucebolunenlerintoplami,
   besyuzdenkucuksayilar,
   siralisayilar,
-  tekraredensayilar;
+  tekraredensayilar,
+  tekrarSayilari;
 
 // 3a çözümü
 
@@ -117,52 +118,54 @@ for (let i = 0; i < sayilar.length; i++) {
 
 // 3b çözümü:
  ucetambolunenler = [];
-
 sayilar.forEach(sayi => {
   if (sayi % 3 === 0) {
-    let index = 0; 
-    while (ucetambolunenler[index] !== undefined) {
-      index++; 
-    }
-  
-  }
-});
+    ucetambolunenler.push(sayi);
+    }  
+  });
 
 // 3c çözümü:
- ucebolunenlerintoplami = ucetambolunenler.reduce((toplam, sayi) => toplam + sayi, 0);
+ucebolunenlerintoplami = ucetambolunenler.reduce((toplam, sayi) => {
+  return toplam + sayi;
+}, 0);
 
 // 3d çözümü
 
-besyuzdenkucuksayilar = sayilar.filter(sayi => sayi < 500);
+besyuzdenkucuksayilar = sayilar.filter((sayi) => {
+  return sayi < 500;
+});
 
 // 3e çözümü
 
-siralisayilar = besyuzdenkucuksayilar.slice().sort((a, b) => a - b);
+siralisayilar = besyuzdenkucuksayilar.sort(function (a, b) {
+  return a - b;
+});
+console.log(siralisayilar);
 
 // 3f çözümü
 
 tekraredensayilar = [];
-tekrarBilgileri = {};
 
-  for (let i = 0; i < sayilar.length; i++) {
-    const sayi = sayilar[i];
-    
-    if (!tekrarBilgileri[sayi]) {
-      tekrarBilgileri[sayi] = 1;
-    } else {
-      
-      tekrarBilgileri[sayi]++;
-    }
-  }
-  
-  
-  for (const sayi in tekrarBilgileri) {
-    if (tekrarBilgileri.hasOwnProperty(sayi) && tekrarBilgileri[sayi] > 1) {
-      tekraredensayilar.push(`${sayi} sayısı ${tekrarBilgileri[sayi]} kere tekrar edilmiştir`);
-    }
-  }
-  
+tekrarSayilari = {};
 
+sayilar.forEach(function (sayi) {
+  if (tekrarSayilari[sayi]) {
+    tekrarSayilari[sayi]++;
+  } else {
+    tekrarSayilari[sayi] = 1;
+  }
+});
+
+for (var sayi in tekrarSayilari) {
+  if (tekrarSayilari[sayi] > 1) {
+    tekraredensayilar.push(
+      `${sayi} sayısı ${tekrarSayilari[sayi]} kere tekrar edilmiştir`
+    );
+  }
+}
+
+console.log(tekraredensayilar);
+  
 /*  Bu satırın aşağısındaki kodları lütfen değiştirmeyin  */
 
 function sa() {
